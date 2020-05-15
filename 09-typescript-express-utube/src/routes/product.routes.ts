@@ -36,4 +36,29 @@ productRouter.post('/', (request, response) => {
   }
 });
 
+productRouter.delete('/products/:code', (request, response) => {
+  try {
+    const { code } = request.body;
+    return response.json(productRepository.deleteByCode(code));
+  } catch (err) {
+    return response.status(400).json({ Erro: err.message });
+  }
+});
+
+productRouter.put('/products/:code', (request, response) => {
+  try{
+    const code = request.body.code;
+    const description = request.body.description;
+    const buyPrice = request.body.buyPrice;
+    const sellPrice = request.body.sellPrice;
+    const tags = request.body.tags;
+    const id = request.body.id;
+
+    return response.json(productRepository.att(code, description, buyPrice, sellPrice, tags, id))
+
+  } catch (err) {
+    return response.status(400).json({ Erro: err.message });
+  }
+});
+
 export default productRouter;
