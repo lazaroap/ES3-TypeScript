@@ -32,22 +32,22 @@ clientRouter.post('/', (request, response) => {
   }
 });
 
-clientRouter.delete('/clients/delete/:code', (request, response) => {
+clientRouter.delete('/delete/:code', (request, response) => {
   try {
-    const { code } = request.body;
+    const code = parseInt(request.params.code, 10);
     return response.json(clientRepository.deleteByCode(code));
   } catch (err) {
     return response.status(400).json({ Erro: err.message });
   }
 });
 
-clientRouter.put('clients/att/:code', (request, response) => {
+clientRouter.put('/att/:code', (request, response) => {
   try{
+    const code = parseInt(request.params.code, 10);
     const name = request.body.name;
     const cpf = request.body.cpf;
     const email = request.body.email;
     const money = request.body.money;
-    const code = request.body.code;
 
     return response.json(clientRepository.att(name, cpf, email, money, code))
 

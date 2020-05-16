@@ -36,25 +36,25 @@ productRouter.post('/', (request, response) => {
   }
 });
 
-productRouter.delete('/products/:code', (request, response) => {
+productRouter.delete('/delete/:code', (request, response) => {
   try {
-    const { code } = request.body;
+    const code = parseInt(request.params.code, 10);
     return response.json(productRepository.deleteByCode(code));
   } catch (err) {
     return response.status(400).json({ Erro: err.message });
   }
 });
 
-productRouter.put('/products/:code', (request, response) => {
+productRouter.put('/att/:code', (request, response) => {
   try{
-    const code = request.body.code;
+    const code = parseInt(request.params.code, 10);
     const description = request.body.description;
     const buyPrice = request.body.buyPrice;
     const sellPrice = request.body.sellPrice;
     const tags = request.body.tags;
     const id = request.body.id;
 
-    return response.json(productRepository.att(code, description, buyPrice, sellPrice, tags, id))
+    return response.json(productRepository.att(id, code, description, buyPrice, sellPrice, tags))
 
   } catch (err) {
     return response.status(400).json({ Erro: err.message });

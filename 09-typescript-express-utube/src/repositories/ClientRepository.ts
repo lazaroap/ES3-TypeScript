@@ -51,19 +51,19 @@ export default class ClientRepository {
     money: number,
     code: number,
 
-  ): Client {
-    const index = this.clients.find(obj => obj.code === code);
+  ): Client | undefined {
+    const index = this.clients.find(p => p.code === code);
 
-    if (!index) {
+    if (index == undefined) {
       throw Error('Erro!');
-    }
+    } else {
 
     index.name = name;
     index.cpf = cpf;
     index.email = email;
     index.money = money;
     index.code = code;
-
+    }
     return index;
   }
 

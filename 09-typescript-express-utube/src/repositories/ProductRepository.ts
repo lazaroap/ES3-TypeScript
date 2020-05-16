@@ -30,30 +30,24 @@ export default class ProductRepository {
 
   public att(
     id: string,
-
     code: number,
-
     description: string,
-
     buyPrice: number,
-
     sellPrice: number,
-
     tags: Array<Product>,
 
-  ): Product {
-    const index = this.products.find(obj => obj.code === code);
+  ): Product | undefined {
+    const index = this.products.find(p => p.code === code);
 
-    if (!index) {
+    if (index == undefined) {
       throw Error('Erro!');
+    } else {
+      index.code = code;
+      index.description = description;
+      index.buyPrice = buyPrice;
+      index.sellPrice = sellPrice;
+      index.tags = tags;
     }
-
-    index.code = code;
-    index.description = description;
-    index.buyPrice = buyPrice;
-    index.sellPrice = sellPrice;
-    index.tags = tags;
-
     return index;
   }
 
